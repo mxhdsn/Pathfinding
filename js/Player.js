@@ -20,6 +20,7 @@ class Player {
 
     constructor(scene, x, y, texture) {
     }
+    
     update(time, delta) {
     }
 }

@@ -9,10 +9,13 @@ class Enemy{
     targetY
     /** @type {boolean} */
     pendingMove
+
     constructor(scene, x, y, texture) {
     }
+
     update(time, delta){
     }
+    
     beginMove(){
     }
 }
