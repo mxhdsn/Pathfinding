@@ -27,6 +27,9 @@ class PathFindingScene extends Phaser.Scene {
         //-- Player --//
         this.load.image('man', 'assets/man.png')
         this.load.image('man-with-gun', 'assets/man-with-gun.png')
+        //-- Enemy --//
+        this.load.image('enemy', 'assets/enemy.png')
+        this.load.image('dead-enemy', 'assets/dead-enemy.png')
         //-- Gun --//
         this.load.image('gun', 'assets/gun.png')
         this.load.image('bullet', 'assets/bullet.png')
@@ -49,6 +52,9 @@ class PathFindingScene extends Phaser.Scene {
             } else if(dataObject.type === 'gunSpawn') {
                 // @ts-ignore
                 this.gun = this.physics.add.sprite(dataObject.x, dataObject.y, 'gun')
+            } else if(dataObject.type === 'enemySpawn') {
+                //@ts-ignore
+                this.enemySpawnPoints.push(dataObject)
             }
         }, this)
         this.physics.add.collider(this.player.sprite, groundAndWallsLayer)
@@ -62,6 +68,8 @@ class PathFindingScene extends Phaser.Scene {
         this.physics.world.on('worldbounds', this.worldBoundsBullet, this)
         this.physics.add.collider(this.bullets, groundAndWallsLayer, this.bulletHitWall, null, this)
         this.events.on('firebullet', this.fireBullet, this)
+        //-- Enemies --//
+        this.time.delayedCall(1000, this.onEnemySpawn, [], this)
     }
 
     findPath(point) {
@@ -71,6 +79,10 @@ class PathFindingScene extends Phaser.Scene {
     }
 
     onEnemySpawn() {
+        //console.log('enemy spawned')
+        let index = Phaser.Math.Between(0, this.enemySpawnPoints.length - 1)
+        let spawnPoint = this.enemySpawnPoints[index]
+        let enemy = new Enemy(this, spawnPoint.x, spawnPoint.y, 'enemy')
     }
 
     handleEnemyMove(enemy) {
@@ -83,14 +95,16 @@ class PathFindingScene extends Phaser.Scene {
     }
     
     fireBullet() {
-        let bullet = this.bullets.get(this.player.sprite.x, this.player.sprite.y)
+        let vector = new Phaser.Math.Vector2(48, 19)
+        vector.rotate(this.player.sprite.rotation)
+        let bullet = this.bullets.get(this.player.sprite.x + vector.x, this.player.sprite.y + vector.y)
         if(bullet){
             bullet.setDepth(3)
             bullet.body.collideWorldBounds = true
             bullet.body.onWorldBounds = true
             bullet.enableBody(false, bullet.x, bullet.y, true, true)
             bullet.rotation = this.player.sprite.rotation
-            this.physics.velocityFromRotation(bullet.rotation, 1000, bullet.body.velocity)
+            this.physics.velocityFromRotation(bullet.rotation, 200, bullet.body.velocity)
         }
     }
 
