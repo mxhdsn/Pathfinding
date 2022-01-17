@@ -17,8 +17,15 @@ class Enemy{
     }
 
     update(time, delta){
+        //-- Is It Time To Move --//
+        if (!this.pendingMove && this.sprite.x == this.targetX && this.sprite.y == this.targetY){
+            this.pendingMove = true
+            this.scene.time.delayedCall(500, this.beginMove, [], this)
+        }
     }
     
     beginMove(){
+        this.scene.events.emit('enemyready', this)
+        this.pendingMove = false
     }
 }
