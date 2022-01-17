@@ -21,9 +21,16 @@ class PathFindingScene extends Phaser.Scene {
     }
     
     preload() {
+        this.load.image('tileset', 'assets/tiles100-spacing2.png')
+        this.load.tilemapTiledJSON('level1', 'assets/level1.json')
     }
 
     create() {
+        this.map = this.make.tilemap({ key: 'level1' })
+        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
+        this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels)
+        const tileset = this.map.addTilesetImage('tileset', 'tileset')
+        const groundAndWallsLayer = this.map.createLayer('groundAndWallsLayer', 'tileset', 0, 0)
     }
 
     findPath(point) {

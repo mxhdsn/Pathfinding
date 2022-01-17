@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="100" tileheight="100" infinite="0" nextlayerid="3" nextobjectid="8">
+ <editorsettings>
+  <export target="../../../pathfinding-demo-stub/pathfinding-demo-stub/assets/level1.tmx" format="tmx"/>
+ </editorsettings>
+ <tileset firstgid="1" name="tileset" tilewidth="100" tileheight="100" tilecount="28" columns="4">
+  <image source="../../../pathfinding-demo-stub/pathfinding-demo-stub/assets/tiles100-spacing2.png" width="408" height="714"/>
+  <tile id="0">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="valid" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="valid" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="valid" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="valid" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="valid" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="valid" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="valid" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="valid" type="bool" value="false"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="29" name="tileset" tilewidth="100" tileheight="100" spacing="2" tilecount="28" columns="4">
+  <image source="../../../pathfinding-demo-stub/pathfinding-demo-stub/assets/tiles100-spacing2.png" width="408" height="714"/>
+  <tile id="0">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="valid" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="valid" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="valid" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="valid" type="bool" value="false"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="valid" type="bool" value="false"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer id="1" name="groundAndWallsLayer" width="20" height="20">
+  <data encoding="csv">
+45,48,45,45,47,46,47,46,46,47,48,47,47,48,45,46,45,46,47,45,
+47,42,33,46,45,47,45,46,45,32,35,48,45,48,46,45,46,30,33,45,
+47,31,34,46,47,47,48,47,48,43,31,47,46,48,45,46,47,43,42,45,
+45,34,44,47,46,47,47,48,46,44,38,47,45,45,45,46,47,30,40,45,
+48,40,44,48,46,40,36,33,35,31,31,43,38,36,37,45,45,41,34,46,
+48,31,42,45,48,39,36,42,31,32,44,44,32,40,39,47,46,41,42,47,
+48,37,34,47,46,43,43,48,45,47,47,45,48,33,40,45,46,40,40,47,
+48,44,44,43,30,38,39,29,38,37,31,42,36,31,43,32,34,29,32,45,
+48,42,32,39,34,44,38,43,34,30,33,42,41,43,38,42,44,44,34,48,
+48,48,45,48,45,47,48,47,45,39,34,47,46,48,45,48,45,46,48,46,
+46,42,36,44,32,31,33,29,44,30,43,40,33,44,38,30,43,32,30,46,
+47,30,31,43,29,38,39,43,41,29,31,29,34,35,30,41,40,35,44,45,
+47,44,39,36,48,45,48,47,47,29,41,48,45,45,48,46,34,30,33,48,
+46,32,44,29,48,45,46,48,45,35,42,47,47,48,47,46,33,38,35,45,
+45,38,35,32,45,46,45,47,47,34,37,47,47,48,45,47,31,43,42,45,
+45,43,29,30,46,45,47,45,47,33,43,48,45,45,46,46,32,35,31,47,
+48,35,33,37,30,31,43,39,38,39,31,43,34,37,33,41,43,40,32,48,
+48,35,40,34,36,39,42,35,29,39,43,31,40,30,38,33,36,30,29,46,
+46,31,37,41,40,47,46,46,48,46,45,45,45,46,45,29,40,33,43,48,
+48,46,45,48,46,48,46,45,48,47,45,47,45,48,47,48,45,48,45,48
+</data>
+ </layer>
+ <objectgroup id="2" name="objectLayer">
+  <object id="2" type="playerSpawn" x="1000" y="1100">
+   <point/>
+  </object>
+  <object id="3" type="enemySpawn" x="1800" y="200">
+   <point/>
+  </object>
+  <object id="4" type="enemySpawn" x="200" y="200">
+   <point/>
+  </object>
+  <object id="5" type="enemySpawn" x="200" y="1800">
+   <point/>
+  </object>
+  <object id="6" type="enemySpawn" x="1800" y="1800">
+   <point/>
+  </object>
+  <object id="7" type="gunSpawn" x="1000" y="200">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
