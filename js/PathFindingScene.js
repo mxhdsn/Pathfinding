@@ -21,6 +21,10 @@ class PathFindingScene extends Phaser.Scene {
     activeEnemy
     /** @type {number} */
     minEnemies = 2
+    /** @type {number} */
+    jewelsCollected = 0
+    /** @type {number} */
+    enemiesKilled = 0
     /** @type  {Phaser.Physics.Arcade.Group} */
     bullets
 
@@ -53,6 +57,7 @@ class PathFindingScene extends Phaser.Scene {
         this.load.image('blue-jewel-ui', 'assets/blue-jewel-ui.png')
         this.load.image('green-jewel-ui', 'assets/green-jewel-ui.png')
         this.load.image('yellow-jewel-ui', 'assets/yellow-jewel-ui.png')
+        this.load.image('check', 'assets/check.png')
     }
 
     create() {
@@ -65,30 +70,50 @@ class PathFindingScene extends Phaser.Scene {
         groundAndWallsLayer.setCollisionByProperty({ valid: false })
         const objectLayer = this.map.getObjectLayer('objectLayer')
         //-- Creating User Interface --//
+        this.border = new Phaser.Geom.Rectangle(0, 0, 1997, 1997)
+        this.add.graphics().lineStyle(5, 0xFFFFFF).strokeRectShape(this.border)
+        //-- Jewels UI --//
         this.redJewelUI = this.add.image(70, 70, 'red-jewel-ui')
         this.redJewelText = this.add.text(130, 30, '=', {
             fontSize: '90px',
         })
         this.redJewelUI.setDepth(3)
         this.redJewelText.setDepth(3)
+        this.check1 = this.add.image(230, 60, 'check')
+        this.check1.setDepth(3)
+        this.check1.setVisible(false)
         this.blueJewelUI = this.add.image(70, 170, 'blue-jewel-ui')
         this.blueJewelText = this.add.text(130, 130, '=', {
             fontSize: '90px',
         })
         this.blueJewelUI.setDepth(3)
         this.blueJewelText.setDepth(3)
+        this.check2 = this.add.image(230, 160, 'check')
+        this.check2.setDepth(3)
+        this.check2.setVisible(false)
         this.greenJewelUI = this.add.image(70, 270, 'green-jewel-ui')
         this.greenJewelText = this.add.text(130, 230, '=', {
             fontSize: '90px',
         })
         this.greenJewelUI.setDepth(3)
         this.greenJewelText.setDepth(3)
+        this.check3 = this.add.image(230, 260, 'check')
+        this.check3.setDepth(3)
+        this.check3.setVisible(false)
         this.yellowJewelUI = this.add.image(70, 370, 'yellow-jewel-ui')
         this.yellowJewelText = this.add.text(130, 330, '=', {
             fontSize: '90px',
         })
         this.yellowJewelUI.setDepth(3)
         this.yellowJewelText.setDepth(3)
+        this.check4 = this.add.image(230, 360, 'check')
+        this.check4.setDepth(3)
+        this.check4.setVisible(false)
+        //-- Enemies UI --//
+        this.enemiesKilledText = this.add.text(70, 1930, 'Enemies Killed = 0 ', {
+            fontSize: '50px'
+        })
+        this.enemiesKilledText.setDepth(3)
         //-- Creating Player --//
         objectLayer.objects.forEach(function (object) {
             let dataObject = Utils.RetrieveCustomProperties(object)
@@ -189,7 +214,7 @@ class PathFindingScene extends Phaser.Scene {
         if (this.player.isDead) {
             return
         }
-        // Sets up a list of tweens, one for each tile to walk, that will be chained by the timeline
+        //-- Sets up a list of tweens, one for each tile to walk, that will be chained by the timeline --//
         let tweenList = []
         for (let i = 0; i < path.length - 1; i++) {
             let cx = path[i].x
@@ -247,22 +272,26 @@ class PathFindingScene extends Phaser.Scene {
 
     collectRedJewel(player, redJewel) {
         this.redJewel.destroy()
-        console.log('Red Jewel Collected')
+        this.check1.setVisible(true)
+        this.jewelsCollected += 1
     }
 
     collectBlueJewel(player, blueJewel) {
         this.blueJewel.destroy()
-        console.log('Blue Jewel Collected')
+        this.check2.setVisible(true)
+        this.jewelsCollected += 1
     }
 
     collectGreenJewel(player, greenJewel) {
         this.greenJewel.destroy()
-        console.log('Green Jewel Collected')
+        this.check3.setVisible(true)
+        this.jewelsCollected += 1
     }
 
     collectYellowJewel(player, yellowJewel) {
         this.yellowJewel.destroy()
-        console.log('Yellow Jewel Collected')
+        this.check4.setVisible(true)
+        this.jewelsCollected += 1
     }
 
     fireBullet() {
@@ -293,6 +322,8 @@ class PathFindingScene extends Phaser.Scene {
 
     bulletHitEnemy(enemySprite, bullet) {
         bullet.disableBody(true, true)
+        this.enemiesKilled += 1
+        this.enemiesKilledText.setText('Enemies Killed = ' + this.enemiesKilled)
         let index
         for (let i = 0; i < this.enemies.length; i++) {
             if (this.enemies[i].sprite === enemySprite) {
