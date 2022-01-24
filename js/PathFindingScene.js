@@ -107,54 +107,49 @@ class PathFindingScene extends Phaser.Scene {
     }
 
     findPath(point) {
-        //-- Point Object Has X and Y in Pixels --//
         let toX = Math.floor(point.x / this.map.tileWidth)
         let toY = Math.floor(point.y / this.map.tileHeight)
         let fromX = Math.floor(this.activeEnemy.sprite.x / this.map.tileWidth)
         let fromY = Math.floor(this.activeEnemy.sprite.y / this.map.tileHeight)
         let callback = this.moveEnemy.bind(this)
-        //-- Set Up Path Query --//
         this.finder.findPath(fromX, fromY, toX, toY, function (path) {
             if (path === null) {
-                console.warn('path not found')
+                console.warn("Path was not found.")
             } else {
-                console.log('Path found')
+                console.log('found path')
                 callback(path)
             }
         })
-        //-- Execute Path Query --//
         this.finder.calculate()
     }
 
     moveEnemy(path) {
-        if(this.player.isDead){
+        if (this.player.isDead) {
             return
         }
+        // Sets up a list of tweens, one for each tile to walk, that will be chained by the timeline
         let tweenList = []
-        for(let i = 0; i < path.length - 1; i++){
-            //-- Current Position --//
-            let cx = path[i].X
+        for (let i = 0; i < path.length - 1; i++) {
+            let cx = path[i].x
             let cy = path[i].y
-            //-- Target Position --//
             let dx = path[i + 1].x
             let dy = path[i + 1].y
-            //-- Target Angle (Rotation in degrees) --//
             let a
-            if(dx > cx){
+            if (dx > cx) {
                 a = 0
-            } else if(dx < cx){
+            } else if (dx < cx) {
                 a = 180
-            } else if(dy > cy){
+            }
+            if (dy > cy) {
                 a = 90
-            } else if(dy < cy){
+            } else if (dy < cy) {
                 a = 270
             }
-            //-- Phaser Tween --//
             tweenList.push({
                 targets: this.activeEnemy.sprite,
-                x:{value: (dx * this.map.tileWidth) + (0.5 * this.map.tileWidth), duration: this.activeEnemy.speed},
-                y:{value: (dy * this.map.tileHeight) + (0.5 * this.map.tileHeight), duration: this.activeEnemy.speed},
-                angle: {value: a, duration: 0}
+                x: { value: (dx * this.map.tileWidth) + (0.5 * this.map.tileWidth), duration: this.activeEnemy.speed },
+                y: { value: (dy * this.map.tileHeight) + (0.5 * this.map.tileHeight), duration: this.activeEnemy.speed },
+                angle: { value: a, duration: 0 }
             })
         }
         this.tweens.timeline({
@@ -163,7 +158,6 @@ class PathFindingScene extends Phaser.Scene {
     }
 
     onEnemySpawn() {
-        //console.log('enemy spawned')
         let index = Phaser.Math.Between(0, this.enemySpawnPoints.length - 1)
         let spawnPoint = this.enemySpawnPoints[index]
         let enemy = new Enemy(this, spawnPoint.x, spawnPoint.y, 'enemy')
@@ -174,12 +168,13 @@ class PathFindingScene extends Phaser.Scene {
     }
 
     handleEnemyMove(enemy) {
+        let toX = (Math.floor(this.player.sprite.x / this.map.tileWidth) * this.map.tileWidth) + this.map.tileWidth / 2
+        let toY = (Math.floor(this.player.sprite.y / this.map.tileHeight) * this.map.tileHeight) + this.map.tileHeight / 2
+        let point = { x: toX, y: toY }
+        enemy.targetX = point.x
+        enemy.targetY = point.y
         this.activeEnemy = enemy
-        let toX = Math.floor(this.player.sprite.x / this.map.width) * this.map.tileWidth + (this.map.tileWidth / 2)
-        let toY = Math.floor(this.player.sprite.y / this.map.height) * this.map.tileHeight + (this.map.tileHeight / 2)
-        enemy.targetX =  toX
-        enemy.targetY = toY
-        this.findPath({ x: toX, y: toY })
+        this.findPath(point)
     }
 
     collectGun(player, gun) {
@@ -199,7 +194,7 @@ class PathFindingScene extends Phaser.Scene {
             bullet.enableBody(false, bullet.x, bullet.y, true, true)
             bullet.rotation = this.player.sprite.rotation
             this.physics.velocityFromRotation(bullet.rotation, 800, bullet.body.velocity)
-            for(let i = 0; i < this.enemies.length; i++){
+            for (let i = 0; i < this.enemies.length; i++) {
                 this.physics.add.collider(this.enemies[i].sprite, bullet, this.bulletHitEnemy, null, this)
             }
         }
@@ -217,8 +212,8 @@ class PathFindingScene extends Phaser.Scene {
     bulletHitEnemy(enemySprite, bullet) {
         bullet.disableBody(true, true)
         let index
-        for(let i = 0; i < this.enemies.length; i++){
-            if(this.enemies[i].sprite === enemySprite){
+        for (let i = 0; i < this.enemies.length; i++) {
+            if (this.enemies[i].sprite === enemySprite) {
                 index = i
                 break
             }
@@ -226,7 +221,7 @@ class PathFindingScene extends Phaser.Scene {
         this.enemies.splice(index, 1)
         this.add.image(enemySprite.x, enemySprite.y, 'dead-enemy').setRotation(enemySprite.rotation).setDepth(0)
         enemySprite.destroy()
-        if(!this.player.isDead && this.enemies.length < this.minEnemies){
+        if (!this.player.isDead && this.enemies.length < this.minEnemies) {
             this.onEnemySpawn()
         }
     }
@@ -242,6 +237,15 @@ class PathFindingScene extends Phaser.Scene {
         this.player.update(time, delta)
         for (let i = 0; i < this.enemies.length; i++) {
             this.enemies[i].update(time, delta)
+        }
+    }
+
+    checkValid(x, y) {
+        let tile = this.map.getTileAt(x, y)
+        if (tile) {
+            return tile.properties.valid == true
+        } else {
+            return false
         }
     }
 }

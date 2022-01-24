@@ -20,7 +20,7 @@ class Player {
 
     constructor(scene, x, y, texture) {
         this.scene = scene
-        this.sprite = scene.physics.add.sprite(x, y, texture)
+        this.sprite = this.scene.physics.add.sprite(x, y, texture)
         this.sprite.setDepth(2)
         this.sprite.setCollideWorldBounds(true)
         this.spaceBar = scene.input.keyboard.createCursorKeys().space
@@ -32,33 +32,34 @@ class Player {
         })
         this.currentSpeed = this.standardSpeed
     }
-    
     update(time, delta) {
-        //-- Player Movement --//
-        if(!this.isDead){
-            if (this.keys.a.isDown){
+        if (!this.isDead) {
+            if (this.keys.a.isDown) {
                 this.sprite.setVelocity(-this.currentSpeed, 0)
                 this.sprite.angle = 180
-            } else if (this.keys.d.isDown){
+            }
+            else if (this.keys.d.isDown) {
                 this.sprite.setVelocity(this.currentSpeed, 0)
                 this.sprite.angle = 0
-            } else if (this.keys.w.isDown){
+            }
+            else if (this.keys.w.isDown) {
                 this.sprite.setVelocity(0, -this.currentSpeed)
                 this.sprite.angle = 270
-            } else if (this.keys.s.isDown){
+            }
+            else if (this.keys.s.isDown) {
                 this.sprite.setVelocity(0, this.currentSpeed)
                 this.sprite.angle = 90
-            } else {
+            }
+            else {
                 this.sprite.setVelocity(0, 0)
             }
-            //-- Resize Hitbox Depending on Rotation --//
-            if (this.sprite.body.velocity.x !=0 ) {
+            if (this.sprite.body.velocity.x != 0) {
                 this.sprite.setSize(this.sprite.width, this.sprite.height)
-            } else if (this.sprite.body.velocity.y !=0) {
+
+            } else if (this.sprite.body.velocity.y != 0) {
                 this.sprite.setSize(this.sprite.height, this.sprite.width)
             }
-            //-- Firing Bullets --//
-            if(this.hasGun && Phaser.Input.Keyboard.JustDown(this.spaceBar)){
+            if (this.hasGun && Phaser.Input.Keyboard.JustDown(this.spaceBar)) {
                 this.scene.events.emit('firebullet')
             }
         }
