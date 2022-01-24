@@ -69,7 +69,7 @@ class PathFindingScene extends Phaser.Scene {
         this.physics.add.collider(this.bullets, groundAndWallsLayer, this.bulletHitWall, null, this)
         this.events.on('firebullet', this.fireBullet, this)
         //-- Enemies --//
-        this.events.on('enemyready', this.handleEnemyMove, this)
+        this.events.on('enemymove', this.handleEnemyMove, this)
         this.time.delayedCall(1000, this.onEnemySpawn, [], this)
         this.time.delayedCall(5000, this.onEnemySpawn, [], this)
         //@ts-ignore
