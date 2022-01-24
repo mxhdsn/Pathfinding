@@ -5,6 +5,14 @@ class PathFindingScene extends Phaser.Scene {
     player
     /** @type  {Phaser.Physics.Arcade.Sprite} */
     gun
+    /** @type {Phaser.Physics.Arcade.Sprite} */
+    redJewel
+    /** @type {Phaser.Physics.Arcade.Sprite} */
+    greenJewel
+    /** @type {Phaser.Physics.Arcade.Sprite} */
+    blueJewel
+    /** @type {Phaser.Physics.Arcade.Sprite} */
+    yellowJewel
     /** @type {Array.<Enemy>} */
     enemies = []
     /** @type {Array.<object>} */
@@ -23,7 +31,9 @@ class PathFindingScene extends Phaser.Scene {
     preload() {
         //-- Tilemap and Tileset --//
         this.load.image('tileset', 'assets/tiles100-spacing2.png')
-        this.load.tilemapTiledJSON('level1', 'assets/level1.json')
+        this.load.tilemapTiledJSON('testing', 'assets/level1.json')
+        //-- Level 1 --//
+        this.load.tilemapTiledJSON('level1', 'assets/gameLevel1.json')
         //-- Player --//
         this.load.image('man', 'assets/man.png')
         this.load.image('man-with-gun', 'assets/man-with-gun.png')
@@ -33,6 +43,16 @@ class PathFindingScene extends Phaser.Scene {
         //-- Gun --//
         this.load.image('gun', 'assets/gun.png')
         this.load.image('bullet', 'assets/bullet.png')
+        //-- Jewels --//
+        this.load.image('blue-jewel', 'assets/blue-jewel.png')
+        this.load.image('green-jewel', 'assets/green-jewel.png')
+        this.load.image('red-jewel', 'assets/red-jewel.png')
+        this.load.image('yellow-jewel', 'assets/yellow-jewel.png')
+        //-- UI Stuff --//
+        this.load.image('red-jewel-ui', 'assets/red-jewel-ui.png')
+        this.load.image('blue-jewel-ui', 'assets/blue-jewel-ui.png')
+        this.load.image('green-jewel-ui', 'assets/green-jewel-ui.png')
+        this.load.image('yellow-jewel-ui', 'assets/yellow-jewel-ui.png')
     }
 
     create() {
@@ -44,6 +64,31 @@ class PathFindingScene extends Phaser.Scene {
         const groundAndWallsLayer = this.map.createLayer('groundAndWallsLayer', 'tileset', 0, 0)
         groundAndWallsLayer.setCollisionByProperty({ valid: false })
         const objectLayer = this.map.getObjectLayer('objectLayer')
+        //-- Creating User Interface --//
+        this.redJewelUI = this.add.image(70, 70, 'red-jewel-ui')
+        this.redJewelText = this.add.text(130, 30, '=', {
+            fontSize: '90px',
+        })
+        this.redJewelUI.setDepth(3)
+        this.redJewelText.setDepth(3)
+        this.blueJewelUI = this.add.image(70, 170, 'blue-jewel-ui')
+        this.blueJewelText = this.add.text(130, 130, '=', {
+            fontSize: '90px',
+        })
+        this.blueJewelUI.setDepth(3)
+        this.blueJewelText.setDepth(3)
+        this.greenJewelUI = this.add.image(70, 270, 'green-jewel-ui')
+        this.greenJewelText = this.add.text(130, 230, '=', {
+            fontSize: '90px',
+        })
+        this.greenJewelUI.setDepth(3)
+        this.greenJewelText.setDepth(3)
+        this.yellowJewelUI = this.add.image(70, 370, 'yellow-jewel-ui')
+        this.yellowJewelText = this.add.text(130, 330, '=', {
+            fontSize: '90px',
+        })
+        this.yellowJewelUI.setDepth(3)
+        this.yellowJewelText.setDepth(3)
         //-- Creating Player --//
         objectLayer.objects.forEach(function (object) {
             let dataObject = Utils.RetrieveCustomProperties(object)
@@ -55,6 +100,18 @@ class PathFindingScene extends Phaser.Scene {
             } else if (dataObject.type === 'enemySpawn') {
                 //@ts-ignore
                 this.enemySpawnPoints.push(dataObject)
+            } else if (dataObject.type === 'redSpawn') {
+                // @ts-ignore
+                this.redJewel = this.physics.add.sprite(dataObject.x, dataObject.y, 'red-jewel')
+            } else if (dataObject.type === 'blueSpawn') {
+                //@ts-ignore
+                this.blueJewel = this.physics.add.sprite(dataObject.x, dataObject.y, 'blue-jewel')
+            }else if (dataObject.type === 'greenSpawn') {
+                //@ts-ignore
+                this.greenJewel = this.physics.add.sprite(dataObject.x, dataObject.y, 'green-jewel')
+            } else if (dataObject.type === 'yellowSpawn') {
+                //@ts-ignore
+                this.yellowJewel = this.physics.add.sprite(dataObject.x, dataObject.y, 'yellow-jewel')
             }
         }, this)
         this.physics.add.collider(this.player.sprite, groundAndWallsLayer)
@@ -68,6 +125,11 @@ class PathFindingScene extends Phaser.Scene {
         this.physics.world.on('worldbounds', this.worldBoundsBullet, this)
         this.physics.add.collider(this.bullets, groundAndWallsLayer, this.bulletHitWall, null, this)
         this.events.on('firebullet', this.fireBullet, this)
+        //-- Jewels --//
+        this.physics.add.overlap(this.player.sprite, this.redJewel, this.collectRedJewel, null, this)
+        this.physics.add.overlap(this.player.sprite, this.blueJewel, this.collectBlueJewel, null, this)
+        this.physics.add.overlap(this.player.sprite, this.greenJewel, this.collectGreenJewel, null, this)
+        this.physics.add.overlap(this.player.sprite, this.yellowJewel, this.collectYellowJewel, null, this)
         //-- Enemies --//
         this.events.on('enemymove', this.handleEnemyMove, this)
         this.time.delayedCall(1000, this.onEnemySpawn, [], this)
@@ -181,6 +243,26 @@ class PathFindingScene extends Phaser.Scene {
         this.gun.destroy()
         this.player.hasGun = true
         this.player.sprite.setTexture('man-with-gun')
+    }
+
+    collectRedJewel(player, redJewel) {
+        this.redJewel.destroy()
+        console.log('Red Jewel Collected')
+    }
+
+    collectBlueJewel(player, blueJewel) {
+        this.blueJewel.destroy()
+        console.log('Blue Jewel Collected')
+    }
+
+    collectGreenJewel(player, greenJewel) {
+        this.greenJewel.destroy()
+        console.log('Green Jewel Collected')
+    }
+
+    collectYellowJewel(player, yellowJewel) {
+        this.yellowJewel.destroy()
+        console.log('Yellow Jewel Collected')
     }
 
     fireBullet() {
