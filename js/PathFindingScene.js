@@ -38,6 +38,8 @@ class PathFindingScene extends Phaser.Scene {
         this.load.tilemapTiledJSON('testing', 'assets/level1.json')
         //-- Level 1 --//
         this.load.tilemapTiledJSON('level1', 'assets/gameLevel1.json')
+        //-- Level 2 --//
+        this.load.tilemapTiledJSON('level2', 'assets/gameLevel2.json')
         //-- Player --//
         this.load.image('man', 'assets/man.png')
         this.load.image('man-with-gun', 'assets/man-with-gun.png')
