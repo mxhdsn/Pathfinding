@@ -1,4 +1,12 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"json",
+         "target":"gameLevel1.json"
+        }
+    },
  "height":20,
  "infinite":false,
  "layers":[
@@ -306,6 +314,42 @@
                          "name":"valid",
                          "type":"bool",
                          "value":true
+                        }]
+                }, 
+                {
+                 "id":16,
+                 "properties":[
+                        {
+                         "name":"valid",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":17,
+                 "properties":[
+                        {
+                         "name":"valid",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":18,
+                 "properties":[
+                        {
+                         "name":"valid",
+                         "type":"bool",
+                         "value":false
+                        }]
+                }, 
+                {
+                 "id":19,
+                 "properties":[
+                        {
+                         "name":"valid",
+                         "type":"bool",
+                         "value":false
                         }]
                 }],
          "tilewidth":100
