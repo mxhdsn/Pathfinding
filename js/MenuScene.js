@@ -45,7 +45,7 @@ class MenuScene extends Phaser.Scene{
             fontSize: '150px'
         })
         playButton.setInteractive({useHandCursor: true})
-        playButton.on('pointerdown', () => this.scene.start('PathFindingScene'))
+        playButton.on('pointerdown', () => this.scene.start('pathFindingScene'))
         levelButton.setInteractive({useHandCursor: true})
         exitButton.setInteractive({useHandCursor: true})
     }

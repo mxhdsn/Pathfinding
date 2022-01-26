@@ -9,6 +9,7 @@
     <script src="js/easystar.js"></script>
     <script src="js/Utils.js"></script>
     <script src="js/MenuScene.js"></script>
+    <script src="js/LevelScene.js"></script>
     <script src="js/PathFindingScene.js"></script>
     <script src="js/Player.js"></script>
     <script src="js/Enemy.js"></script>
@@ -40,7 +41,7 @@
                 }
             },
             pixelArt: false,
-            scene: PathFindingScene
+            scene: [LevelScene, PathFindingScene, MenuScene]
         };
         var game = new Phaser.Game(config);
     </script>

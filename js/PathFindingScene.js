@@ -351,6 +351,10 @@ class PathFindingScene extends Phaser.Scene {
         for (let i = 0; i < this.enemies.length; i++) {
             this.enemies[i].update(time, delta)
         }
+        if(this.jewelsCollected === 4){
+            this.scene.pause()
+            this.scene.start('MenuScene')
+        }
     }
 
     checkValid(x, y) {
