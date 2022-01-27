@@ -8,7 +8,7 @@ class LevelScene extends Phaser.Scene{
 
     preload(){
         //-- Load Background --//
-        this.load.tilemapTiledJSON('background2', 'assets/background2.json')
+        this.load.tilemapTiledJSON('background2', 'assets/levels_json/background2.json')
         this.load.image('tileset', 'assets/tiles100-spacing2.png')
     }
 
@@ -47,39 +47,42 @@ class LevelScene extends Phaser.Scene{
             fontSize: '150px'
         })
         level1.setInteractive({useHandCursor: true})
-        level1.on('pointerdown', () => this.scene.start('pathFindingScene'))
+        level1.on('pointerdown', () => this.scene.start('Level1'))
         var level2 = this.add.text(960, 340, '2', {
             fontSize: '150px'
         })
         level2.setInteractive({useHandCursor: true})
+        level2.on('pointerdown', () => this.scene.start('Level2'))
         var level3 = this.add.text(1550, 340, '3', {
             fontSize: '150px'
         })
         level3.setInteractive({useHandCursor: true})
+        level3.on('pointerdown', () => this.scene.start('Level3'))
         var level4 = this.add.text(350, 940, '4', {
             fontSize: '150px'
         })
         level4.setInteractive({useHandCursor: true})
-        var level5 = this.add.text(950, 940, '5', {
-            fontSize: '150px'
-        })
-        level5.setInteractive({useHandCursor: true})
-        var level6 = this.add.text(1550, 940, '6', {
-            fontSize: '150px'
-        })
-        level6.setInteractive({useHandCursor: true})
-        var level7 = this.add.text(350, 1540, '7', {
-            fontSize: '150px'
-        })
-        level7.setInteractive({useHandCursor: true})
-        var level8 = this.add.text(950, 1540, '8', {
-            fontSize: '150px'
-        })
-        level8.setInteractive({useHandCursor: true})
-        var level9 = this.add.text(1550, 1540, '9', {
-            fontSize: '150px'
-        })
-        level9.setInteractive({useHandCursor: true})
+        level4.on('pointerdown', () => this.scene.start('Level4'))
+        // var level5 = this.add.text(950, 940, '5', {
+        //     fontSize: '150px'
+        // })
+        // level5.setInteractive({useHandCursor: true})
+        // var level6 = this.add.text(1550, 940, '6', {
+        //     fontSize: '150px'
+        // })
+        // level6.setInteractive({useHandCursor: true})
+        // var level7 = this.add.text(350, 1540, '7', {
+        //     fontSize: '150px'
+        // })
+        // level7.setInteractive({useHandCursor: true})
+        // var level8 = this.add.text(950, 1540, '8', {
+        //     fontSize: '150px'
+        // })
+        // level8.setInteractive({useHandCursor: true})
+        // var level9 = this.add.text(1550, 1540, '9', {
+        //     fontSize: '150px'
+        // })
+        // level9.setInteractive({useHandCursor: true})
         //-- Back Button --//
         var backButton = this.add.text(100, 1900, 'BACK', {
             fontSize: '90px'

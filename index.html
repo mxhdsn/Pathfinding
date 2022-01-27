@@ -11,6 +11,10 @@
     <script src="js/MenuScene.js"></script>
     <script src="js/LevelScene.js"></script>
     <script src="js/PathFindingScene.js"></script>
+    <script src="js/Level1.js"></script>
+    <script src="js/Level2.js"></script>
+    <script src="js/Level3.js"></script>
+    <script src="js/Level4.js"></script>
     <script src="js/Player.js"></script>
     <script src="js/Enemy.js"></script>
     <style type="text/css">
@@ -37,11 +41,11 @@
             physics: {
                 default: 'arcade',
                 arcade: {
-                    debug: true
+                    debug: false
                 }
             },
             pixelArt: false,
-            scene: [MenuScene, PathFindingScene, LevelScene]
+            scene: [MenuScene, Level1, Level2, Level3, Level4, LevelScene]
         };
         var game = new Phaser.Game(config);
     </script>

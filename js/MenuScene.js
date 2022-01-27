@@ -8,7 +8,7 @@ class MenuScene extends Phaser.Scene{
 
     preload(){
         //-- Background Loading --//
-        this.load.tilemapTiledJSON('background', 'assets/background.json')
+        this.load.tilemapTiledJSON('background', 'assets/levels_json/background.json')
         this.load.image('tileset', 'assets/tiles100-spacing2.png')
     }
 
@@ -45,9 +45,10 @@ class MenuScene extends Phaser.Scene{
             fontSize: '150px'
         })
         playButton.setInteractive({useHandCursor: true})
-        playButton.on('pointerdown', () => this.scene.start('pathFindingScene'))
+        playButton.on('pointerdown', () => this.scene.start('Level1'))
         levelButton.setInteractive({useHandCursor: true})
         levelButton.on('pointerdown', () => this.scene.start('LevelScene'))
         exitButton.setInteractive({useHandCursor: true})
+        exitButton.on('pointerdown', () => this.scene.stop())
     }
 }
