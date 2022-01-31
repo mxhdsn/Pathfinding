@@ -314,7 +314,7 @@
                         {
                          "name":"valid",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -323,7 +323,7 @@
                         {
                          "name":"valid",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -332,7 +332,7 @@
                         {
                          "name":"valid",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }, 
                 {
@@ -341,7 +341,7 @@
                         {
                          "name":"valid",
                          "type":"bool",
-                         "value":true
+                         "value":false
                         }]
                 }],
          "tilewidth":100
